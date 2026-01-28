@@ -1,13 +1,13 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  namespace: robot-shop
   name: robot-shop
+  namespace: robot-shop
   annotations:
-    kubernetes.io/ingress.class: alb
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
 spec:
+  ingressClassName: alb   # <-- add this line
   rules:
     - http:
         paths:
@@ -15,6 +15,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: web
+                name: web       # <-- make sure this matches your frontend service name
                 port:
-                  number: 8080
+                  number: 8080 # <-- update if your service uses a different port
